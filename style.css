@@ -1,8 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Press Start 2P', sans-serif;
   background: #222;
-  color: white;
+  font-family: sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,9 +9,9 @@ body {
 }
 
 #game-container {
-  position: relative;
   width: 320px;
   height: 480px;
+  position: relative;
   background: #5c94fc;
   border: 4px solid #000;
 }
@@ -31,14 +30,16 @@ canvas {
 }
 
 button {
-  font-family: inherit;
   font-size: 14px;
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
   background: #ff9933;
   color: white;
-  box-shadow: 0 4px #c66;
+}
+
+#slideBtn {
+  background: #cc4444;
 }
 
 #slideBtn {
