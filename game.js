@@ -1,27 +1,25 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+var canvas = document.getElementById("gameCanvas");
+var ctx = canvas.getContext("2d");
 
-const gravity = 0.5;
-const jumpPower = -10;
-let gameSpeed = 3;
+var gravity = 0.5;
+var jumpPower = -10;
+var gameSpeed = 3;
+var score = 0;
 
-const player = {
+var player = {
   x: 50,
   y: 380,
   width: 32,
   height: 32,
-  velocityY: 0,
-  isSliding: false
+  velocityY: 0
 };
 
-const obstacle = {
+var obstacle = {
   x: canvas.width,
   y: 380,
   width: 30,
   height: 30
 };
-
-let score = 0;
 
 function resetObstacle() {
   obstacle.x = canvas.width + Math.random() * 100;
@@ -46,26 +44,24 @@ function drawScore() {
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Gravity
+  // gravity
   player.velocityY += gravity;
   player.y += player.velocityY;
 
-  // Ground collision
   if (player.y > 380) {
     player.y = 380;
     player.velocityY = 0;
   }
 
-  // Obstacle movement
+  // move obstacle
   obstacle.x -= gameSpeed;
 
-  // Reset obstacle
   if (obstacle.x + obstacle.width < 0) {
     resetObstacle();
-    score++;
+    score += 1;
   }
 
-  // Collision detection
+  // collision
   if (
     player.x < obstacle.x + obstacle.width &&
     player.x + player.width > obstacle.x &&
@@ -79,19 +75,19 @@ function update() {
   drawPlayer();
   drawObstacle();
   drawScore();
-
-  requestAnimationFrame(update);
 }
 
-document.getElementById("jumpBtn").addEventListener("click", () => {
+// Jump
+document.getElementById("jumpBtn").onclick = function() {
   if (player.y >= 380) {
     player.velocityY = jumpPower;
   }
-});
+};
 
-document.getElementById("slideBtn").addEventListener("click", () => {
-  // Optional: implement slide logic
-});
+// Slide (не реализовано)
+document.getElementById("slideBtn").onclick = function() {
+  // зарезервировано под slide-логику
+};
 
 resetObstacle();
-update();
+setInterval(update, 1000 / 60); // 60 FPS
